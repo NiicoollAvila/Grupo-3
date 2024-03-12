@@ -1,0 +1,52 @@
+int azul = 11;
+int verde = 12;
+int rojo = 13;
+int titilar = 9;
+int paro = 2;
+
+
+
+void setup() {
+pinMode(azul,OUTPUT);// AZUL 
+pinMode(rojo,OUTPUT);// ROJO
+pinMode(verde,OUTPUT);// VERDE
+pinMode(titilar,INPUT); 
+}
+
+void loop()
+{
+
+     
+     bool e = digitalRead(paro);
+     if (!e==1){
+     digitalWrite(rojo, LOW);
+     digitalWrite(azul, LOW);
+     digitalWrite(verde, LOW);
+     }
+     else{
+     bool e = digitalRead(titilar);
+if (!e==1){ 
+  digitalWrite (rojo, HIGH);
+  delay(500);
+  digitalWrite (rojo, LOW);
+  delay(500);
+  }
+    
+else {digitalWrite(azul,HIGH);// AZUL
+ digitalWrite(rojo,LOW);// ROJO
+ digitalWrite(verde,LOW);// VERDE
+ delay(5000);
+ digitalWrite(azul,HIGH);// AZUL
+ digitalWrite(rojo,HIGH);// ROJO
+ digitalWrite(verde,LOW);// verde
+ delay(1000);
+ digitalWrite(azul,LOW);// azul
+ digitalWrite(rojo,LOW);// rojo
+ digitalWrite(verde,HIGH);// VERDE
+ delay(3000);
+ digitalWrite(azul,LOW);// azul
+ digitalWrite(rojo,HIGH);// rojo
+ digitalWrite(verde,LOW);// VERDE
+ delay(1000);}  
+       }
+}
