@@ -1,0 +1,46 @@
+// Definición de pines
+// Definición de pines
+const int pinBotonIngreso = D8;
+const int pinBotonEgreso = D7;
+const int pinLedVerde = D6;
+const int pinLedRojo = D5;
+
+// Variables globales
+int cuposDisponibles = 10; // Cambiar según el número de cupos del parqueadero
+unsigned int valorRecaudado = 0;
+
+void setup() {
+  pinMode(pinBotonIngreso, INPUT);
+  pinMode(pinBotonEgreso, INPUT);
+  pinMode(pinLedVerde, OUTPUT);
+  pinMode(pinLedRojo, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Verificar si hay cupos disponibles
+  if (cuposDisponibles > 0) {
+    digitalWrite(pinLedVerde, HIGH); // Mostrar luz verde si hay cupos disponibles
+    digitalWrite(pinLedRojo, LOW);
+  } else {
+    digitalWrite(pinLedVerde, LOW); // Mostrar luz roja si el parqueadero está lleno
+    digitalWrite(pinLedRojo, HIGH);
+  }
+
+  // Verificar ingreso de vehículo
+  if (digitalRead(pinBotonIngreso) == LOW && cuposDisponibles > 0) {
+    cuposDisponibles--;
+    Serial.println("Vehículo ingresó al parqueadero.");
+  }
+
+  // Verificar egreso de vehículo
+  if (digitalRead(pinBotonEgreso) == LOW && cuposDisponibles < 10) {
+    cuposDisponibles++;
+    valorRecaudado += 5; // Sumar valor de la tarifa al valor recaudado
+    Serial.print("Vehículo salió del parqueadero. Valor recaudado: ");
+    Serial.print(valorRecaudado);
+    Serial.println(" 000 COP");
+  }
+
+  delay(100); // Pequeña pausa para evitar rebotes en los botones
+}
